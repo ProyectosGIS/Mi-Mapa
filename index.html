@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School of Community Teamwork</title>
+    <title>CTI Schools</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <style>
         #map {
@@ -21,37 +21,61 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align: center; margin: 0; padding: 10px;">Escuelas de CTI</h1>
+    <h1 style="text-align: center; margin: 0; padding: 10px;">CTI Schools</h1>
     <div id="map"></div>
 
     <div class="compass">
-        <strong>Rosa de los Vientos:</strong>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Compass_rose_pale.svg" alt="Rosa de los vientos" width="100">
+        <strong>Compass Rose:</strong>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Compass_rose_pale.svg" alt="Compass Rose" width="100">
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Crear el mapa centrado en Lowell, MA
+        // Create the map centered on Lowell, MA
         const map = L.map('map').setView([42.6334, -71.3162], 13);
 
-        // Añadir capa base de OpenStreetMap
+        // Add OpenStreetMap base layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        // Agregar marcador del norte magnético
-        L.marker([42.645, -71.320], {title: "Norte Magnético"})
+        // Add magnetic north marker
+        L.marker([42.645, -71.320], {title: "Magnetic North"})
             .addTo(map)
-            .bindPopup("Norte Magnético");
+            .bindPopup("Magnetic North");
 
-        // Agregar marcador de una escuela de CTI (ejemplo)
-        L.marker([42.633, -71.316], {title: "Escuela de CTI"})
+        // Add a CTI school marker (example)
+        L.marker([42.633, -71.316], {title: "CTI School"})
             .addTo(map)
-            .bindPopup("Escuela de CTI");
+            .bindPopup("CTI School");
 
-        // Personaliza el mapa agregando más marcadores o capas
+        // Geolocation: Add marker for user's current location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    const userMarker = L.marker([latitude, longitude], {
+                        title: "Your Location",
+                        icon: L.icon({
+                            iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Blue_marker.svg',
+                            iconSize: [25, 41],
+                            iconAnchor: [12, 41],
+                            popupAnchor: [1, -34]
+                        })
+                    }).addTo(map);
+                    userMarker.bindPopup("You are here").openPopup();
+
+                    // Center map on user's location
+                    map.setView([latitude, longitude], 15);
+                },
+                () => {
+                    alert("Unable to retrieve your location.");
+                }
+            );
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
     </script>
 </body>
 </html>
-
