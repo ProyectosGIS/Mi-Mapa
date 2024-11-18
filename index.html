@@ -3,7 +3,8 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-compass/1.5.3/leaflet-compass.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-compass/1.5.3/leaflet-compass.min.js"></script>
- <meta charset="UTF-8">
+ 
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mapa en la Página Web</title>
   <!-- Agregar el estilo y la biblioteca de Leaflet -->
@@ -24,6 +25,35 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+
+  // Inicializa el mapa
+  const map = L.map('map').setView([0, 0], 2);
+
+  // Agrega la capa base de OpenStreetMap
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // Agrega la rosa de los vientos
+  const compass = L.control.compass({
+    position: 'topright', // Coloca la rosa en la esquina superior derecha
+    autoActive: true, // Activa automáticamente el control
+    showDigit: true // Muestra el ángulo de orientación
+  }).addTo(map);
+
+const compass = L.control.compass({
+  position: 'bottomleft', // Ahora la rosa aparece en la parte inferior izquierda
+  autoActive: false, // Requiere activarse manualmente
+  showDigit: false // No muestra los números de orientación
+}).addTo(map);
+
+
+
+
+</script>
+
+
+
   </script>
 </body>
 </html>
